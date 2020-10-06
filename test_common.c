@@ -18,6 +18,7 @@ int REF = INS;
 
 
 #define BENCH_TEST_FILE "bench_ref.txt"
+#define BLOOM_TEST_FILE "bloom_ref.txt"
 
 long poolsize = 2000000 * WRDMAX;
 
@@ -102,6 +103,11 @@ int main(int argc, char **argv)
 
     if (argc == 3 && strcmp(argv[1], "--bench") == 0) {
         int stat = bench_test(root, BENCH_TEST_FILE, LMAX);
+        tst_free(root);
+        free(pool);
+        return stat;
+    } else if (argc == 3 && strcmp(argv[1], "--bloom") == 0) {
+        int stat = bloom_bench_test(root, BLOOM_TEST_FILE, LMAX, &bloom);
         tst_free(root);
         free(pool);
         return stat;
